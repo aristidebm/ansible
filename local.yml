@@ -1,0 +1,7 @@
+- hosts:
+  become: true
+  tasks:
+    - name: Install btop
+      apk: name=btop
+    - name: Install neovim
+      apK: name=neovim
