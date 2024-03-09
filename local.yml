@@ -2,6 +2,10 @@
   become: true
   tasks:
     - name: Install btop
-      apk: name=btop
+      ansible.builtin.apk:
+        name: btop
+        state: latest
     - name: Install neovim
-      apK: name=neovim
+      ansible.builtin.apk:
+        name: neovim 
+        state: latest
