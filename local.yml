@@ -4,8 +4,16 @@
     - name: Install btop
       ansible.builtin.apk:
         name: btop
-        state: latest
+        state: present
     - name: Install neovim
       ansible.builtin.apk:
         name: neovim 
-        state: latest
+        state: present
+    - name: Install neovim Doc # Alpine separeate neovim from neovim-doc
+      ansible.builtin.apk:
+        name: neovim-doc 
+        state: present
+    - name: Install curl 
+      ansible.builtin.apk:
+        name: curl 
+        state: present
