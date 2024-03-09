@@ -1,0 +1,16 @@
+---
+- name: "Bat - Run Tasks: {{ ansible_distribution }}"   
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+
+- name: "Bat - Change privileges on config directory"
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/bat"
+    state: directory
+
+- name: "Bat - Setup the config directory" 
+  ansible.builtin.file:
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_user_dir }}/.config/bat"
+    state: link
+    force: true

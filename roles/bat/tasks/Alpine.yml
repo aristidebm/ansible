@@ -1,0 +1,5 @@
+---
+- name: "Bat - Install for Distribution: {{ ansible_distribution }}"
+  ansible.builtin.apk:
+      name: bat
+      state: present

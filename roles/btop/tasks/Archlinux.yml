@@ -1,0 +1,5 @@
+---
+- name: "Btop - Install for Distribution: {{ ansible_distribution }}"
+  ansible.builtin.pacman:
+      name: btop
+      state: present

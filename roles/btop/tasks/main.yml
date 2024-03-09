@@ -1,0 +1,16 @@
+---
+- name: "Btop - Run Tasks: {{ ansible_distribution }}"   
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+
+- name: "Btop - Change privileges on config directory"
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/btop"
+    state: directory
+
+- name: "Btop - Setup the config directory" 
+  ansible.builtin.file:
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_user_dir }}/.config/btop"
+    state: link
+    force: true

@@ -1,0 +1,5 @@
+---
+- name: "Neovim - Install for Distribution: {{ ansible_distribution }}"
+  ansible.builtin.pacman:
+      name: neovim
+      state: present

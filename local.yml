@@ -1,27 +1,29 @@
-- name: Boostrap linux machine
+- name: DotFiles Config
   hosts: localhost
+  connection: local
   become: true
+
   tasks:
-    - name: Install btop
-      ansible.builtin.apk:
-        name: btop
-        state: present
-      when: ansible_distribution == "Alpine"
+    - name: Set roles
+      ansible.builtin.set_fact:
+        run_roles: "{{ ansible_run_tags != ['all'] and ansible_run_tags or default_roles | difference(exclude_roles | default([])) }}"
+      tags:
+        - always
 
-    - name: Install neovim
-      ansible.builtin.apk:
-        name: neovim 
-        state: present
-      when: ansible_distribution == "Alpine"
+    - name: Display roles
+      ansible.builtin.debug:
+        var: run_roles
+      tags:
+        - always
 
-    - name: Install neovim Doc # Alpine separeate neovim from neovim-doc
-      ansible.builtin.apk:
-        name: neovim-doc 
-        state: present
-      when: ansible_distribution == "Alpine"
-
-    - name: Install curl 
-      ansible.builtin.apk:
-        name: curl 
-        state: present
-      when: ansible_distribution == "Alpine"
+    - name: Run roles
+      ansible.builtin.include_role:
+        apply:
+          tags:
+            - "{{ roles_item }}"
+        name: "{{ roles_item }}"
+      loop_control:
+        loop_var: roles_item
+      with_items: "{{ run_roles }}"
+      tags:
+        - always
