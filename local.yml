@@ -1,4 +1,4 @@
-- hosts:
+- hosts: localhost
   become: true
   tasks:
     - name: Install btop
